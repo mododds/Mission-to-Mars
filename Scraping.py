@@ -14,12 +14,12 @@ def scrape_all():
     news_title, news_paragraph = mars_news(browser)
 
     # Run all scraping functions and store results in a dictionary
-    data = {
+    data = { 1: {
         "news_title": news_title,
         "news_paragraph": news_paragraph,
         "featured_image": featured_image(browser),
         "facts": mars_facts(),
-        "last_modified": dt.datetime.now()
+        "last_modified": dt.datetime.now()}
     }
 
     # Stop webdriver and return data
@@ -101,3 +101,40 @@ if __name__ == "__main__":
 
     # If running as script, print scraped data
     print(scrape_all())
+
+url = 'https://marshemispheres.com/'
+
+browser.visit(url)
+
+
+# 2. Create a list to hold the images and titles.
+hemisphere_image_urls = []
+
+# 3. Write code to retrieve the image urls and titles for each hemisphere.
+
+# Parse the resulting html with soup
+html = browser.html
+img_soup = soup(html, 'html.parser')
+img_soup
+
+# find the relative image url
+results = img_soup.find('img', class_='thumb').get('src')
+results
+
+# Use the base url to create an absolute url
+img_url = f'https://astrogeology.usgs.gov/cache/{img_url_rel}'
+img_url
+
+# 4. Print the list that holds the dictionary of each image url and title.
+hemisphere_image_urls = [{'img_url': 'https://marshemispheres.com/images/full.jpg',
+  'title': 'Cerberus Hemisphere Enhanced'},
+ {'img_url': 'https://marshemispheres.com/images/schiaparelli_enhanced-full.jpg',
+  'title': 'Schiaparelli Hemisphere Enhanced'},
+ {'img_url': 'https://marshemispheres.com/images/syrtis_major_enhanced-full.jpg',
+  'title': 'Syrtis Major Hemisphere Enhanced'},
+ {'img_url': 'https://marshemispheres.com/images/valles_marineris_enhanced-full.jpg',
+  'title': 'Valles Marineris Hemisphere Enhanced'}]
+print(hemisphere_image_urls)
+
+# 5. Quit the browser
+browser.quit()
